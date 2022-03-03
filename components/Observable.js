@@ -12,226 +12,206 @@ import ObservableValues from './ObservableValues';
 const axisStrokeWidth = 2;
 
 export default class Observable extends Component {
-  static propTypes = {
-    observableIndex: PropTypes.number.isRequired,
-    name: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      width: PropTypes.number.isRequired,
-      style: PropTypes.object
-    }),
-    translateY: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    marginLeft: PropTypes.number.isRequired,
-    shouldRenderAxis: PropTypes.bool.isRequired,
-    axisWidth: PropTypes.number.isRequired,
-    progressWidth: PropTypes.number.isRequired,
-    mainColor: PropTypes.string.isRequired,
-    arrowWidth: PropTypes.number.isRequired,
-    shapeOuterSize: PropTypes.number.isRequired,
-    shapeStrokeWidth: PropTypes.number.isRequired,
-    scale: PropTypes.func.isRequired,
-    observable: PropTypes.any.isRequired,
-    animate: PropTypes.bool.isRequired,
-    allTooltips: PropTypes.array.isRequired,
-    onErrorMouseEnter: PropTypes.func.isRequired,
-    onErrorMouseLeave: PropTypes.func.isRequired,
-    onValueMouseEnter: PropTypes.func.isRequired,
-    onValueMouseLeave: PropTypes.func.isRequired
-  };
+    static propTypes = {
+        observableIndex: PropTypes.number.isRequired,
+        name: PropTypes.shape({
+            text: PropTypes.string.isRequired,
+            width: PropTypes.number.isRequired,
+            style: PropTypes.object,
+        }),
+        translateY: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+        marginLeft: PropTypes.number.isRequired,
+        shouldRenderAxis: PropTypes.bool.isRequired,
+        axisWidth: PropTypes.number.isRequired,
+        progressWidth: PropTypes.number.isRequired,
+        mainColor: PropTypes.string.isRequired,
+        arrowWidth: PropTypes.number.isRequired,
+        shapeOuterSize: PropTypes.number.isRequired,
+        shapeStrokeWidth: PropTypes.number.isRequired,
+        scale: PropTypes.func.isRequired,
+        observable: PropTypes.any.isRequired,
+        animate: PropTypes.bool.isRequired,
+        allTooltips: PropTypes.array.isRequired,
+        onErrorMouseEnter: PropTypes.func.isRequired,
+        onErrorMouseLeave: PropTypes.func.isRequired,
+        onValueMouseEnter: PropTypes.func.isRequired,
+        onValueMouseLeave: PropTypes.func.isRequired,
+    };
 
-  renderName() {
-    const { name, height } = this.props;
+    renderName() {
+        const { name, height } = this.props;
 
-    return <ObservableName name={name} observableHeight={height} />;
-  }
-
-  renderAxis(axisStartX, axisStrokeColor) {
-    const { shouldRenderAxis } = this.props;
-
-    if (!shouldRenderAxis) {
-      return null;
+        return <ObservableName name={name} observableHeight={height} />;
     }
 
-    const { height, axisWidth } = this.props;
+    renderAxis(axisStartX, axisStrokeColor) {
+        const { shouldRenderAxis } = this.props;
 
-    return (
-      <ObservableAxis
-        startX={axisStartX}
-        width={axisWidth}
-        y={height / 2}
-        strokeWidth={axisStrokeWidth}
-        strokeColor={axisStrokeColor}
-      />
-    );
-  }
-
-  renderProgress(axisStartX) {
-    const { height, progressWidth, mainColor } = this.props;
-
-    return (
-      <ObservableProgress
-        startX={axisStartX}
-        width={progressWidth}
-        y={height / 2}
-        strokeWidth={axisStrokeWidth}
-        strokeColor={mainColor}
-      />
-    );
-  }
-
-  renderArrow(axisStrokeColor) {
-    const {
-      height,
-      shouldRenderAxis,
-      axisWidth,
-      mainColor,
-      arrowWidth
-    } = this.props;
-
-    return (
-      <ObservableAxisArrow
-        width={arrowWidth}
-        axisWidth={axisWidth}
-        observableHeight={height}
-        color={shouldRenderAxis ? axisStrokeColor : mainColor}
-      />
-    );
-  }
-
-  getStyle = () => {
-    const { animate } = this.props;
-
-    return animate
-      ? {
-          opacity: 0,
-          transition: 'opacity .5s ease-in-out'
+        if (!shouldRenderAxis) {
+            return null;
         }
-      : {
-          opacity: 1
-        };
-  };
 
-  animate = element => {
-    setTimeout(() => {
-      element.style.opacity = 1;
-    }, 50); // If it gets smaller, the animation doesn't always work.
-  };
+        const { height, axisWidth } = this.props;
 
-  onErrorMouseEnter = () => {
-    const { observableIndex, onErrorMouseEnter } = this.props;
+        return (
+            <ObservableAxis
+                startX={axisStartX}
+                width={axisWidth}
+                y={height / 2}
+                strokeWidth={axisStrokeWidth}
+                strokeColor={axisStrokeColor}
+            />
+        );
+    }
 
-    onErrorMouseEnter({ observableIndex });
-  };
+    renderProgress(axisStartX) {
+        const { height, progressWidth, mainColor } = this.props;
 
-  onErrorMouseLeave = () => {
-    const { observableIndex, onErrorMouseLeave } = this.props;
+        return (
+            <ObservableProgress
+                startX={axisStartX}
+                width={progressWidth}
+                y={height / 2}
+                strokeWidth={axisStrokeWidth}
+                strokeColor={mainColor}
+            />
+        );
+    }
 
-    onErrorMouseLeave({ observableIndex });
-  };
+    renderArrow(axisStrokeColor) {
+        const { height, shouldRenderAxis, axisWidth, mainColor, arrowWidth } = this.props;
 
-  renderError() {
-    const {
-      height,
-      mainColor,
-      shapeOuterSize,
-      scale,
-      observable,
-      animate
-    } = this.props;
-    const { error } = observable;
+        return (
+            <ObservableAxisArrow
+                width={arrowWidth}
+                axisWidth={axisWidth}
+                observableHeight={height}
+                color={shouldRenderAxis ? axisStrokeColor : mainColor}
+            />
+        );
+    }
 
-    return (
-      <ObservableError
-        error={error}
-        height={height}
-        mainColor={mainColor}
-        shapeOuterSize={shapeOuterSize}
-        scale={scale}
-        style={this.getStyle()}
-        onRender={animate ? this.animate : null}
-        onMouseEnter={this.onErrorMouseEnter}
-        onMouseLeave={this.onErrorMouseLeave}
-      />
-    );
-  }
+    getStyle = () => {
+        const { animate } = this.props;
 
-  renderCompleted() {
-    const {
-      height,
-      mainColor,
-      shapeOuterSize,
-      scale,
-      observable,
-      animate
-    } = this.props;
-    const { completed } = observable;
+        return animate
+            ? {
+                  opacity: 0,
+                  transition: 'opacity .5s ease-in-out',
+              }
+            : {
+                  opacity: 1,
+              };
+    };
 
-    return (
-      <ObservableCompleted
-        completed={completed}
-        height={height}
-        mainColor={mainColor}
-        shapeOuterSize={shapeOuterSize}
-        scale={scale}
-        style={this.getStyle()}
-        onRender={animate ? this.animate : null}
-      />
-    );
-  }
+    animate = (element) => {
+        setTimeout(() => {
+            element.style.opacity = 1;
+        }, 50); // If it gets smaller, the animation doesn't always work.
+    };
 
-  renderValues() {
-    const {
-      observableIndex,
-      height,
-      mainColor,
-      shapeOuterSize,
-      shapeStrokeWidth,
-      scale,
-      observable,
-      animate,
-      allTooltips,
-      onValueMouseEnter,
-      onValueMouseLeave
-    } = this.props;
-    const { values } = observable;
+    onErrorMouseEnter = () => {
+        const { observableIndex, onErrorMouseEnter } = this.props;
 
-    return (
-      <ObservableValues
-        values={values}
-        observableIndex={observableIndex}
-        height={height}
-        mainColor={mainColor}
-        shapeOuterSize={shapeOuterSize}
-        shapeStrokeWidth={shapeStrokeWidth}
-        animate={animate}
-        allTooltips={allTooltips}
-        scale={scale}
-        onValueMouseEnter={onValueMouseEnter}
-        onValueMouseLeave={onValueMouseLeave}
-      />
-    );
-  }
+        onErrorMouseEnter({ observableIndex });
+    };
 
-  render() {
-    const { translateY, marginLeft, scale, observable } = this.props;
-    const { startTime, mainColor } = observable;
-    const axisStartX = scale(startTime);
-    const axisStrokeColor = color(mainColor)
-      .alpha(0.2)
-      .string();
+    onErrorMouseLeave = () => {
+        const { observableIndex, onErrorMouseLeave } = this.props;
 
-    return (
-      <g transform={`translate(0, ${translateY})`}>
-        {this.renderName()}
-        <g transform={`translate(${marginLeft}, 0)`}>
-          {this.renderAxis(axisStartX, axisStrokeColor)}
-          {this.renderProgress(axisStartX)}
-          {this.renderArrow(axisStrokeColor)}
-          {this.renderCompleted()}
-          {this.renderValues()}
-          {this.renderError()}
-        </g>
-      </g>
-    );
-  }
+        onErrorMouseLeave({ observableIndex });
+    };
+
+    renderError() {
+        const { height, mainColor, shapeOuterSize, scale, observable, animate } = this.props;
+        const { error } = observable;
+
+        return (
+            <ObservableError
+                error={error}
+                height={height}
+                mainColor={mainColor}
+                shapeOuterSize={shapeOuterSize}
+                scale={scale}
+                style={this.getStyle()}
+                onRender={animate ? this.animate : null}
+                onMouseEnter={this.onErrorMouseEnter}
+                onMouseLeave={this.onErrorMouseLeave}
+            />
+        );
+    }
+
+    renderCompleted() {
+        const { height, mainColor, shapeOuterSize, scale, observable, animate } = this.props;
+        const { completed } = observable;
+
+        return (
+            <ObservableCompleted
+                completed={completed}
+                height={height}
+                mainColor={mainColor}
+                shapeOuterSize={shapeOuterSize}
+                scale={scale}
+                style={this.getStyle()}
+                onRender={animate ? this.animate : null}
+            />
+        );
+    }
+
+    renderValues() {
+        const {
+            observableIndex,
+            height,
+            mainColor,
+            shapeOuterSize,
+            shapeStrokeWidth,
+            scale,
+            observable,
+            animate,
+            allTooltips,
+            onValueMouseEnter,
+            onValueMouseLeave,
+        } = this.props;
+        const { values } = observable;
+
+        return (
+            <ObservableValues
+                values={values}
+                observableIndex={observableIndex}
+                height={height}
+                mainColor={mainColor}
+                shapeOuterSize={shapeOuterSize}
+                shapeStrokeWidth={shapeStrokeWidth}
+                animate={animate}
+                allTooltips={allTooltips}
+                scale={scale}
+                onValueMouseEnter={onValueMouseEnter}
+                onValueMouseLeave={onValueMouseLeave}
+            />
+        );
+    }
+
+    render() {
+        const { translateY, marginLeft, scale, observable } = this.props;
+        const { startTime, mainColor } = observable;
+        const axisStartX = scale(startTime);
+        const axisStrokeColor = color(mainColor)
+            .alpha(0.2)
+            .string();
+
+        return (
+            <g transform={`translate(0, ${translateY})`}>
+                {this.renderName()}
+                <g transform={`translate(${marginLeft}, 0)`}>
+                    {this.renderAxis(axisStartX, axisStrokeColor)}
+                    {this.renderProgress(axisStartX)}
+                    {this.renderArrow(axisStrokeColor)}
+                    {this.renderCompleted()}
+                    {this.renderValues()}
+                    {this.renderError()}
+                </g>
+            </g>
+        );
+    }
 }
