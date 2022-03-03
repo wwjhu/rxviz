@@ -163,15 +163,8 @@ export default class extends Component {
             return <Error statusCode={errorStatusCode} />;
         }
 
-        const {
-            exampleId,
-            code,
-            timeWindowInputValue,
-            vizParams,
-            svg,
-            snippetCreationFailed,
-            lastSnippetId,
-        } = this.state;
+        const { exampleId, code, timeWindowInputValue, vizParams, svg, snippetCreationFailed, lastSnippetId } =
+            this.state;
 
         return (
             <Layout sidebarActiveItemId={exampleId}>

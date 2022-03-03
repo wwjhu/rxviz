@@ -84,17 +84,8 @@ export default class Tooltip extends Component {
     }
 
     render() {
-        const {
-            arrowHeight,
-            rectX,
-            rectY,
-            rectWidth,
-            text,
-            textStyle,
-            textPaddingTop,
-            textPaddingLeft,
-            animate,
-        } = this.props;
+        const { arrowHeight, rectX, rectY, rectWidth, text, textStyle, textPaddingTop, textPaddingLeft, animate } =
+            this.props;
         const style = animate
             ? {
                   transform: `translate(${rectX}px, ${rectY}px) scale(0)`,

@@ -180,17 +180,8 @@ export default class RxVizSnapshotSvg extends Component {
             return null;
         }
 
-        const {
-            name,
-            width,
-            height,
-            countsHeight,
-            timeWindow,
-            shapeSize,
-            observables,
-            tooltips,
-            tooltipsDimensions,
-        } = this.props;
+        const { name, width, height, countsHeight, timeWindow, shapeSize, observables, tooltips, tooltipsDimensions } =
+            this.props;
 
         const outerNameWidth = (name ? name.width : 0) + nameMarginRight;
         // `vizMarginLeft` is used to make sure that, if value appears on the left
@@ -198,9 +189,7 @@ export default class RxVizSnapshotSvg extends Component {
         const vizMarginLeft = (shapeSize + shapeStrokeWidth) / 2;
         const marginLeft = vizMarginLeft + outerNameWidth;
         const axisWidth = width - marginLeft - arrowWidth;
-        const scale = scaleLinear()
-            .domain([0, timeWindow])
-            .range([0, axisWidth]);
+        const scale = scaleLinear().domain([0, timeWindow]).range([0, axisWidth]);
         const tooltipsModels = getTooltipsModels({
             tooltips,
             dimensions: tooltipsDimensions,

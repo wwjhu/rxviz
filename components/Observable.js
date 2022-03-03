@@ -196,9 +196,7 @@ export default class Observable extends Component {
         const { translateY, marginLeft, scale, observable } = this.props;
         const { startTime, mainColor } = observable;
         const axisStartX = scale(startTime);
-        const axisStrokeColor = color(mainColor)
-            .alpha(0.2)
-            .string();
+        const axisStrokeColor = color(mainColor).alpha(0.2).string();
 
         return (
             <g transform={`translate(0, ${translateY})`}>

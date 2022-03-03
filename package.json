@@ -45,11 +45,11 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.5",
-    "eslint": "^4.19.1",
+    "eslint": "^8.10.0",
     "eslint-plugin-react": "^7.29.2",
     "lodash.sortby": "^4.7.0",
     "lolex": "^5.1.2",
-    "prettier": "^1.13.7"
+    "prettier": "^2.5.1"
   },
   "keywords": [
     "rx",
