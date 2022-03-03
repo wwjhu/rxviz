@@ -1,5 +1,5 @@
 {
-  "name": "RxViz",
+  "name": "rxviz",
   "version": "1.0.0",
   "description": "Animated playground for Rx Observables",
   "repository": {
@@ -39,7 +39,7 @@
     "react-ga": "^2.2.0",
     "react-measure": "^2.0.2",
     "react-numeric-input": "moroshko/react-numeric-input",
-    "rxjs": "^6.2.1",
+    "rxjs": "^7.5.4",
     "tinyqueue": "^1.2.2"
   },
   "devDependencies": {
