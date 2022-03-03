@@ -19,12 +19,12 @@
   "dependencies": {
     "ajv": "^8.10.0",
     "codemirror": "^5.65.2",
-    "color": "^1.0.3",
-    "copy-to-clipboard": "^3.0.6",
-    "d3-path": "^1.0.5",
-    "d3-scale": "^1.0.6",
+    "color": "^4.2.1",
+    "copy-to-clipboard": "^3.3.1",
+    "d3-path": "^3.0.1",
+    "d3-scale": "^4.0.2",
     "express": "^4.17.3",
-    "isomorphic-unfetch": "^1.0.0",
+    "isomorphic-unfetch": "^3.1.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
@@ -41,16 +41,14 @@
     "react-measure": "^2.5.2",
     "react-numeric-input": "moroshko/react-numeric-input",
     "rxjs": "^7.5.4",
-    "tinyqueue": "^1.2.2"
+    "tinyqueue": "^2.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.5",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.29.2",
-    "husky": "^0.13.4",
-    "lint-staged": "^3.6.1",
     "lodash.sortby": "^4.7.0",
-    "lolex": "^1.6.0",
+    "lolex": "^5.1.2",
     "prettier": "^1.13.7"
   },
   "keywords": [
